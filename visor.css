@@ -1,422 +1,103 @@
 /* ============================================================
-   L'AUTEUR — Revista Literaria Digital
-   Archivo: css/visor.css
-   Descripción: Estilos del visor de revista con PDF.js
+   L'AUTEUR — Estilos del Visor Interactivo (Flipbook)
    ============================================================ */
 
-/* El visor ocupa toda la pantalla */
-body.visor-page {
+.visor-page {
+  background-color: #1a1a1a !important; /* Fondo oscuro para resaltar la revista */
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   height: 100vh;
-  background: #0D0B08;
-  color: #EDE5D8;
-}
-
-/* ─────────────────────────────────────────────
-   LAYOUT DEL VISOR
-   ───────────────────────────────────────────── */
-.visor-layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
-/* Barra superior del visor */
-.visor-topbar {
-  height: 56px;
-  background: #171410;
-  border-bottom: 1px solid #2E2820;
+/* Barra superior */
+.visor-header {
+  height: 60px;
+  background-color: #111111;
+  border-bottom: 1px solid #2d2d2d;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--space-lg);
-  flex-shrink: 0;
+  padding: 0 20px;
   z-index: 10;
 }
 
-.visor-topbar-left {
+.back-btn {
+  color: #cccccc;
   display: flex;
   align-items: center;
-  gap: var(--space-lg);
-}
-
-.visor-back-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #8A7E6E;
+  gap: 8px;
+  font-size: 0.9rem;
   text-decoration: none;
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #2E2820;
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
+  transition: color 0.2s;
 }
 
-.visor-back-btn:hover {
-  color: #EDE5D8;
-  border-color: #4A3E30;
-  background: #1E1A14;
-}
-
-.visor-back-btn svg {
-  width: 14px;
-  height: 14px;
+.back-btn:hover {
+  color: #ffffff;
 }
 
 .visor-title {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #EDE5D8;
+  font-family: var(--font-display, serif);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
 }
 
-.visor-edition {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #C4703A;
-}
-
-.visor-topbar-right {
+.visor-controls {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 15px;
 }
 
-/* Controles de zoom */
-.visor-zoom-controls {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  background: #1E1A14;
-  border: 1px solid #2E2820;
-  border-radius: var(--radius-sm);
-  padding: 0.2rem;
-}
-
-.visor-ctrl-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  border: none;
-  color: #8A7E6E;
+.visor-controls button {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #3a3a3a;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-fast);
-  font-size: 0.8rem;
+  transition: background 0.2s;
 }
 
-.visor-ctrl-btn:hover {
-  background: #2E2820;
-  color: #EDE5D8;
+.visor-controls button:hover {
+  background: #3a3a3a;
 }
 
-.visor-ctrl-btn svg {
-  width: 14px;
-  height: 14px;
-}
-
-.visor-zoom-level {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  color: #8A7E6E;
-  min-width: 36px;
-  text-align: center;
-}
-
-/* ─────────────────────────────────────────────
-   ÁREA DEL VISOR (canvas PDF)
-   ───────────────────────────────────────────── */
-.visor-main {
+/* área de visualización del libro */
+.book-viewport {
   flex: 1;
-  overflow: hidden;
-  position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: #0D0B08;
+  align-items: center;
+  padding: 20px;
+  background: #1e1e1e;
 }
 
-/* Contenedor del PDF con scroll */
-.visor-canvas-wrapper {
+.container-book {
+  width: 100%;
+  max-width: 900px;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos de Turn.js */
+#flipbook {
   width: 100%;
   height: 100%;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--space-xl) var(--space-lg);
-  gap: var(--space-md);
-  scroll-behavior: smooth;
 }
 
-/* Cada página del PDF */
-.pdf-page-container {
-  position: relative;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.6);
-  flex-shrink: 0;
-  line-height: 0;
+.page {
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-.pdf-page-container canvas {
+.page canvas {
+  width: 100%;
+  height: 100%;
   display: block;
-  max-width: 100%;
-}
-
-/* Número de página flotante */
-.pdf-page-number {
-  position: absolute;
-  bottom: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-ui);
-  font-size: 0.65rem;
-  color: #4A3E30;
-  letter-spacing: 0.1em;
-  white-space: nowrap;
-}
-
-/* Estado de carga */
-.visor-loading {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-lg);
-  background: #0D0B08;
-  z-index: 5;
-}
-
-.visor-loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 2px solid #2E2820;
-  border-top-color: #C4703A;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.visor-loading-text {
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #4A3E30;
-}
-
-.visor-loading-detail {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  color: #2E2820;
-}
-
-/* Estado de error */
-.visor-error {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  text-align: center;
-  padding: var(--space-xl);
-}
-
-.visor-error h3 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: #EDE5D8;
-}
-
-.visor-error p {
-  font-family: var(--font-body);
-  color: #8A7E6E;
-  max-width: 400px;
-}
-
-/* ─────────────────────────────────────────────
-   BARRA INFERIOR DE NAVEGACIÓN
-   ───────────────────────────────────────────── */
-.visor-navbar {
-  height: 56px;
-  background: #171410;
-  border-top: 1px solid #2E2820;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-lg);
-  flex-shrink: 0;
-  padding: 0 var(--space-xl);
-}
-
-.visor-nav-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #8A7E6E;
-  padding: 0.45rem 1rem;
-  border: 1px solid #2E2820;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.visor-nav-btn:hover:not(:disabled) {
-  color: #EDE5D8;
-  border-color: #4A3E30;
-  background: #1E1A14;
-}
-
-.visor-nav-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-.visor-nav-btn svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* Indicador de página actual */
-.visor-page-indicator {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  color: #4A3E30;
-}
-
-.visor-page-current {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #C4703A;
-}
-
-.visor-page-sep {
-  color: #2E2820;
-}
-
-.visor-page-total {
-  color: #4A3E30;
-}
-
-/* Input de navegación directa */
-.visor-page-input {
-  width: 40px;
-  text-align: center;
-  background: #1E1A14;
-  border: 1px solid #2E2820;
-  border-radius: var(--radius-sm);
-  color: #C4703A;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  padding: 0.2rem;
-  outline: none;
-  transition: border-color var(--transition-fast);
-}
-
-.visor-page-input:focus {
-  border-color: #C4703A;
-}
-
-/* ─────────────────────────────────────────────
-   BOTÓN DESCARGA PDF
-   ───────────────────────────────────────────── */
-.visor-download-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #C4703A;
-  padding: 0.45rem 1rem;
-  border: 1px solid #C4703A;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-}
-
-.visor-download-btn:hover {
-  background: #C4703A;
-  color: #0D0B08;
-}
-
-/* ─────────────────────────────────────────────
-   MENSAJE: PDF NO ENCONTRADO (modo demo)
-   ───────────────────────────────────────────── */
-.visor-demo-notice {
-  background: #1E1A14;
-  border: 1px solid #2E2820;
-  border-left: 3px solid #C4703A;
-  border-radius: var(--radius-md);
-  padding: var(--space-lg) var(--space-xl);
-  max-width: 500px;
-  text-align: left;
-}
-
-.visor-demo-notice h3 {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  color: #C4703A;
-  margin-bottom: var(--space-sm);
-}
-
-.visor-demo-notice p {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: #8A7E6E;
-  line-height: 1.7;
-  margin-bottom: var(--space-sm);
-}
-
-.visor-demo-notice code {
-  font-family: monospace;
-  font-size: 0.8rem;
-  background: #0D0B08;
-  color: #C4703A;
-  padding: 0.15rem 0.4rem;
-  border-radius: 2px;
-}
-
-/* ─────────────────────────────────────────────
-   RESPONSIVE DEL VISOR
-   ───────────────────────────────────────────── */
-@media (max-width: 600px) {
-  .visor-topbar {
-    padding: 0 var(--space-md);
-  }
-  .visor-title { display: none; }
-  .visor-zoom-controls { display: none; }
-  .visor-navbar {
-    gap: var(--space-sm);
-    padding: 0 var(--space-md);
-  }
-  .visor-nav-btn span { display: none; }
-  .visor-download-btn span { display: none; }
 }
