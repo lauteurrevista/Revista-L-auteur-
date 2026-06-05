@@ -1,0 +1,596 @@
+/* ============================================================
+   L'AUTEUR — Revista Literaria Digital
+   Archivo: css/main.css
+   Descripción: Estilos globales, variables de diseño y reset.
+   Este archivo es importado por todas las páginas del sitio.
+   ============================================================ */
+
+/* ─────────────────────────────────────────────
+   IMPORTACIÓN DE TIPOGRAFÍAS
+   Playfair Display: títulos y display
+   Lora: cuerpo de texto
+   Raleway: interfaz y etiquetas
+   ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600&display=swap');
+
+/* ─────────────────────────────────────────────
+   VARIABLES DE DISEÑO (MODO CLARO)
+   Para cambiar colores del sitio, edita aquí.
+   ───────────────────────────────────────────── */
+:root {
+  /* Colores principales */
+  --color-bg:         #FAF7F2;   /* Papel envejecido */
+  --color-bg-alt:     #F0EBE3;   /* Papel ligeramente más oscuro */
+  --color-surface:    #FFFFFF;   /* Superficies blancas (tarjetas) */
+  --color-text:       #1A1510;   /* Tinta oscura */
+  --color-text-muted: #7A6E62;   /* Texto secundario */
+  --color-accent:     #8B1A1A;   /* Rojo editorial */
+  --color-accent-alt: #6B3410;   /* Marrón oscuro acento */
+  --color-border:     #D4C5A9;   /* Borde beige */
+  --color-border-strong: #A89880; /* Borde más visible */
+
+  /* Tipografías */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-ui:      'Raleway', system-ui, sans-serif;
+
+  /* Espaciado base */
+  --space-xs:  0.25rem;   /*  4px */
+  --space-sm:  0.5rem;    /*  8px */
+  --space-md:  1rem;      /* 16px */
+  --space-lg:  1.5rem;    /* 24px */
+  --space-xl:  2.5rem;    /* 40px */
+  --space-2xl: 4rem;      /* 64px */
+  --space-3xl: 6rem;      /* 96px */
+
+  /* Ancho máximo del contenido */
+  --max-width: 1200px;
+  --max-width-text: 720px;
+
+  /* Sombras */
+  --shadow-sm:  0 1px 3px rgba(26,21,16,0.08), 0 1px 2px rgba(26,21,16,0.06);
+  --shadow-md:  0 4px 16px rgba(26,21,16,0.10), 0 2px 6px rgba(26,21,16,0.06);
+  --shadow-lg:  0 12px 40px rgba(26,21,16,0.14), 0 4px 12px rgba(26,21,16,0.08);
+  --shadow-card: 0 2px 8px rgba(26,21,16,0.08), 0 8px 32px rgba(26,21,16,0.06);
+
+  /* Transiciones */
+  --transition-fast:   150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow:   500ms ease;
+
+  /* Bordes redondeados */
+  --radius-sm:  2px;
+  --radius-md:  4px;
+  --radius-lg:  8px;
+
+  /* Altura del header */
+  --header-height: 72px;
+}
+
+/* ─────────────────────────────────────────────
+   VARIABLES DE DISEÑO (MODO OSCURO)
+   Se activan cuando el sistema usa modo oscuro
+   o cuando el usuario hace clic en el toggle.
+   ───────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-bg:          #0D0B08;
+  --color-bg-alt:      #171410;
+  --color-surface:     #1E1A14;
+  --color-text:        #EDE5D8;
+  --color-text-muted:  #8A7E6E;
+  --color-accent:      #C4703A;
+  --color-accent-alt:  #A85C2C;
+  --color-border:      #2E2820;
+  --color-border-strong: #4A3E30;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.25);
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.2);
+}
+
+/* ─────────────────────────────────────────────
+   RESET Y BASE
+   ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent-alt);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ─────────────────────────────────────────────
+   TIPOGRAFÍA GLOBAL
+   ───────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+p {
+  font-family: var(--font-body);
+  line-height: 1.8;
+}
+
+/* ─────────────────────────────────────────────
+   CONTENEDOR PRINCIPAL
+   ───────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   HEADER / NAVEGACIÓN GLOBAL
+   ───────────────────────────────────────────── */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 100;
+  transition: background-color var(--transition-normal),
+              border-color var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+/* Sombra sutil cuando se hace scroll */
+.site-header.scrolled {
+  box-shadow: var(--shadow-sm);
+}
+
+.site-header .container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo / Nombre de la revista */
+.header-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.header-logo:hover {
+  color: var(--color-accent);
+}
+
+.header-logo span {
+  color: var(--color-accent);
+}
+
+/* Navegación central */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.header-nav a {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.header-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.header-nav a:hover,
+.header-nav a.active {
+  color: var(--color-text);
+}
+
+.header-nav a:hover::after,
+.header-nav a.active::after {
+  transform: scaleX(1);
+}
+
+/* Controles del header (modo oscuro + menú móvil) */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Botón de modo oscuro */
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--color-bg-alt);
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Icono de sol/luna */
+.icon-sun  { display: block; }
+.icon-moon { display: none; }
+
+[data-theme="dark"] .icon-sun  { display: none; }
+[data-theme="dark"] .icon-moon { display: block; }
+
+/* Menú hamburguesa (solo móvil) */
+.menu-toggle {
+  display: none;
+  width: 36px;
+  height: 36px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--color-text);
+  transition: all var(--transition-fast);
+}
+
+/* ─────────────────────────────────────────────
+   MENÚ MÓVIL
+   ───────────────────────────────────────────── */
+.mobile-menu {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-lg) var(--space-xl);
+  display: none;
+  flex-direction: column;
+  gap: var(--space-md);
+  z-index: 99;
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu a {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: color var(--transition-fast);
+}
+
+.mobile-menu a:hover {
+  color: var(--color-accent);
+}
+
+/* ─────────────────────────────────────────────
+   FOOTER GLOBAL
+   ───────────────────────────────────────────── */
+.site-footer {
+  background-color: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-2xl) 0 var(--space-xl);
+  margin-top: var(--space-3xl);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-xl);
+}
+
+.footer-brand h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin-bottom: var(--space-sm);
+}
+
+.footer-brand p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  max-width: 280px;
+}
+
+.footer-col h4 {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer-col ul li a {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.footer-col ul li a:hover {
+  color: var(--color-accent);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.footer-bottom p {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────────
+   BOTONES REUTILIZABLES
+   ───────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #FAF7F2;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-alt);
+  color: #FAF7F2;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+}
+
+.btn-secondary:hover {
+  background: var(--color-bg-alt);
+  border-color: var(--color-text-muted);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.btn-ghost:hover {
+  background: var(--color-accent);
+  color: #FAF7F2;
+}
+
+/* ─────────────────────────────────────────────
+   ETIQUETA / BADGE
+   ───────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-alt);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+.badge-accent {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+/* ─────────────────────────────────────────────
+   SEPARADOR DECORATIVO
+   ───────────────────────────────────────────── */
+.divider {
+  width: 48px;
+  height: 1px;
+  background: var(--color-accent);
+  margin: var(--space-lg) 0;
+}
+
+.divider-center {
+  margin: var(--space-lg) auto;
+}
+
+/* ─────────────────────────────────────────────
+   ANIMACIONES DE ENTRADA
+   ───────────────────────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Retraso escalonado para grupos de elementos */
+.fade-in:nth-child(1) { transition-delay: 0ms; }
+.fade-in:nth-child(2) { transition-delay: 80ms; }
+.fade-in:nth-child(3) { transition-delay: 160ms; }
+.fade-in:nth-child(4) { transition-delay: 240ms; }
+.fade-in:nth-child(5) { transition-delay: 320ms; }
+.fade-in:nth-child(6) { transition-delay: 400ms; }
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE GLOBAL
+   ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .header-nav {
+    display: none;
+  }
+  .menu-toggle {
+    display: flex;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --header-height: 60px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   UTILIDADES
+   ───────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+.text-accent { color: var(--color-accent); }
+.text-muted  { color: var(--color-text-muted); }
+.font-display { font-family: var(--font-display); }
+.font-ui      { font-family: var(--font-ui); }

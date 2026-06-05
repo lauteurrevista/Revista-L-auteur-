@@ -1,0 +1,566 @@
+/* ============================================================
+   L'AUTEUR — Revista Literaria Digital
+   Archivo: css/home.css
+   Descripción: Estilos específicos de la página principal.
+   ============================================================ */
+
+/* ─────────────────────────────────────────────
+   ESPACIADO BASE (compensar header fijo)
+   ───────────────────────────────────────────── */
+.page-home {
+  padding-top: var(--header-height);
+}
+
+/* ─────────────────────────────────────────────
+   HERO — SECCIÓN PRINCIPAL
+   ───────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: calc(90vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--color-bg-alt);
+}
+
+/* Textura de fondo tipo papel */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(139,26,26,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(139,26,26,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Líneas decorativas verticales */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--color-border), transparent);
+  opacity: 0.5;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
+}
+
+/* Columna izquierda: texto */
+.hero-content {
+  max-width: 580px;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.hero-eyebrow-line {
+  width: 32px;
+  height: 1px;
+  background: var(--color-accent);
+}
+
+.hero-eyebrow-text {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--color-text);
+  margin-bottom: var(--space-xl);
+  letter-spacing: -0.03em;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.hero-description {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-xl);
+  max-width: 440px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.hero-meta {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.hero-stat-number {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.hero-stat-label {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Columna derecha: portada destacada */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Marco decorativo detrás de la portada */
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  top: var(--space-lg);
+  left: var(--space-lg);
+  right: -var(--space-lg);
+  bottom: -var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.hero-cover-wrapper {
+  position: relative;
+  width: 340px;
+  max-width: 100%;
+}
+
+.hero-cover-wrapper img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-slow);
+}
+
+.hero-cover-wrapper:hover img {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(26,21,16,0.18);
+}
+
+/* Etiqueta "Última edición" sobre la portada */
+.hero-cover-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─────────────────────────────────────────────
+   SECCIÓN: ÚLTIMA EDICIÓN DESTACADA
+   ───────────────────────────────────────────── */
+.section-latest {
+  padding: var(--space-3xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-2xl);
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.section-link {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.section-link:hover {
+  color: var(--color-accent);
+}
+
+.section-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Tarjeta de edición destacada (grande) */
+.featured-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-2xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow var(--transition-normal);
+}
+
+.featured-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.featured-cover {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+}
+
+.featured-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.featured-card:hover .featured-cover img {
+  transform: scale(1.03);
+}
+
+.featured-info {
+  padding: var(--space-2xl) var(--space-2xl) var(--space-2xl) 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-numero {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.featured-titulo {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+}
+
+.featured-descripcion {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-xl);
+}
+
+.featured-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.featured-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.featured-meta-label {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.featured-meta-value {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+/* ─────────────────────────────────────────────
+   SECCIÓN: EDICIONES RECIENTES (preview)
+   ───────────────────────────────────────────── */
+.section-recientes {
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Grid de tarjetas de edición */
+.editions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+/* Tarjeta de edición (versión compacta) */
+.edition-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.edition-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-strong);
+}
+
+.edition-card-cover {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: var(--color-bg-alt);
+}
+
+.edition-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.edition-card:hover .edition-card-cover img {
+  transform: scale(1.04);
+}
+
+/* Overlay al hacer hover */
+.edition-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,21,16,0.7) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-md);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.edition-card:hover .edition-card-overlay {
+  opacity: 1;
+}
+
+.edition-card-read-btn {
+  width: 100%;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.edition-card-read-btn:hover {
+  background: var(--color-accent-alt);
+}
+
+.edition-card-info {
+  padding: var(--space-md) var(--space-lg);
+}
+
+.edition-card-numero {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-xs);
+}
+
+.edition-card-titulo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: var(--space-xs);
+  color: var(--color-text);
+}
+
+.edition-card-fecha {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────────
+   SECCIÓN: ACERCA DE LA REVISTA (Manifiesto)
+   ───────────────────────────────────────────── */
+.section-about {
+  padding: var(--space-3xl) 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.about-content h2 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--space-lg);
+}
+
+.about-content h2 em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.about-content p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.9;
+  margin-bottom: var(--space-md);
+}
+
+.about-quote {
+  border-left: 2px solid var(--color-accent);
+  padding-left: var(--space-lg);
+  margin: var(--space-xl) 0;
+}
+
+.about-quote blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Decoración visual del lado derecho */
+.about-visual {
+  position: relative;
+  height: 440px;
+}
+
+.about-visual-inner {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Texto decorativo giratorio */
+.about-deco-text {
+  font-family: var(--font-display);
+  font-size: 8rem;
+  font-weight: 900;
+  color: var(--color-border);
+  user-select: none;
+  line-height: 1;
+  transform: rotate(-15deg);
+  letter-spacing: -0.05em;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE — HOME
+   ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero::after { display: none; }
+  .hero-visual { justify-content: center; margin-top: var(--space-xl); }
+  .hero-visual::before { display: none; }
+  .hero-cover-wrapper { width: 260px; }
+  .hero-description { margin: 0 auto var(--space-xl); }
+  .hero-actions { justify-content: center; }
+  .hero-meta { justify-content: center; }
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-cover { min-height: 260px; }
+  .featured-info { padding: var(--space-xl); }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-visual { display: none; }
+  .editions-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 3rem; }
+  .editions-grid { grid-template-columns: 1fr; }
+  .featured-titulo { font-size: 1.8rem; }
+}

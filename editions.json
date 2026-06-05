@@ -1,0 +1,53 @@
+{
+  "revista": {
+    "nombre": "L'Auteur",
+    "subtitulo": "Revista Literaria Digital Independiente",
+    "descripcion": "Un espacio dedicado a la literatura que trasciende fronteras. Cada edición es una conversación entre voces que exploran el lenguaje, la memoria y la condición humana.",
+    "email": "contacto@lauteur.com",
+    "redes": {
+      "instagram": "https://instagram.com/lauteur",
+      "twitter": "https://twitter.com/lauteur"
+    }
+  },
+  "ediciones": [
+    {
+      "id": 1,
+      "numero": "Nº 01",
+      "titulo": "Los Orígenes",
+      "descripcion": "Primera edición de L'Auteur. Un viaje al origen de la palabra escrita, donde la literatura nace del silencio y la urgencia de nombrar el mundo.",
+      "fecha": "Enero 2025",
+      "fecha_iso": "2025-01",
+      "portada": "assets/covers/cover-01.jpg",
+      "pdf": "assets/pdfs/edicion-01.pdf",
+      "paginas": 32,
+      "destacada": true,
+      "temas": ["narrativa", "poesía", "ensayo"]
+    },
+    {
+      "id": 2,
+      "numero": "Nº 02",
+      "titulo": "La Memoria",
+      "descripcion": "Exploraciones sobre el tiempo, el recuerdo y la escritura como acto de permanencia. La memoria no es el pasado: es el presente que no queremos soltar.",
+      "fecha": "Marzo 2025",
+      "fecha_iso": "2025-03",
+      "portada": "assets/covers/cover-02.jpg",
+      "pdf": "assets/pdfs/edicion-02.pdf",
+      "paginas": 40,
+      "destacada": false,
+      "temas": ["memoria", "narrativa", "crónica"]
+    },
+    {
+      "id": 3,
+      "numero": "Nº 03",
+      "titulo": "El Cuerpo",
+      "descripcion": "La literatura del cuerpo: desde la enfermedad hasta el deseo, desde la fragilidad hasta la potencia. Escritura que habita la carne y la trasciende.",
+      "fecha": "Mayo 2025",
+      "fecha_iso": "2025-05",
+      "portada": "assets/covers/cover-03.jpg",
+      "pdf": "assets/pdfs/edicion-03.pdf",
+      "paginas": 36,
+      "destacada": false,
+      "temas": ["poesía", "ensayo", "traducción"]
+    }
+  ]
+}

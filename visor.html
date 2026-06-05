@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<!-- El visor siempre arranca en modo oscuro para mejor lectura -->
+<head>
+  <!-- ============================================================
+    L'AUTEUR — Revista Literaria Digital
+    Archivo: visor.html
+    Descripción: Visor de PDF. Recibe el ID de la edición por URL.
+    Ejemplo: visor.html?id=3
+
+    Librerías utilizadas:
+    - PDF.js 3.11.174 (Mozilla) — Renderiza el PDF en canvas
+    ============================================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="description" content="Visor de revista — L'Auteur" />
+
+  <title>Cargando… — L'Auteur</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/visor.css" />
+
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+
+  <!-- PDF.js desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body class="visor-page">
+
+  <div class="visor-layout">
+
+    <!-- ══════════════════════════════════════════
+      BARRA SUPERIOR DEL VISOR
+      ════════════════════════════════════════════ -->
+    <header class="visor-topbar" role="banner">
+
+      <!-- Izquierda: botón volver + info -->
+      <div class="visor-topbar-left">
+
+        <a href="javascript:history.back()" class="visor-back-btn" aria-label="Volver a la biblioteca">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+          <span>Volver</span>
+        </a>
+
+        <div>
+          <div class="visor-edition" id="visor-edition">—</div>
+          <div class="visor-title" id="visor-title">Cargando...</div>
+        </div>
+
+      </div>
+
+      <!-- Derecha: controles de zoom + descarga -->
+      <div class="visor-topbar-right">
+
+        <!-- Zoom -->
+        <div class="visor-zoom-controls" role="group" aria-label="Controles de zoom">
+          <button
+            class="visor-ctrl-btn"
+            id="btn-zoom-out"
+            aria-label="Reducir zoom"
+            title="Reducir (–)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+            </svg>
+          </button>
+
+          <span class="visor-zoom-level" id="zoom-level" aria-live="polite">140%</span>
+
+          <button
+            class="visor-ctrl-btn"
+            id="btn-zoom-in"
+            aria-label="Aumentar zoom"
+            title="Aumentar (+)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Descarga PDF -->
+        <a
+          href="#"
+          id="btn-download"
+          class="visor-download-btn"
+          aria-label="Descargar PDF"
+          title="Descargar PDF"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="14" height="14">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+          <span>Descargar</span>
+        </a>
+
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════
+      ÁREA PRINCIPAL: PÁGINAS DEL PDF
+      ════════════════════════════════════════════ -->
+    <main class="visor-main" id="visor-main" role="main" aria-label="Contenido de la revista">
+
+      <!-- Estado: cargando -->
+      <div class="visor-loading" id="visor-loading" role="status" aria-live="polite">
+        <div class="visor-loading-spinner" aria-hidden="true"></div>
+        <p class="visor-loading-text">Cargando revista</p>
+        <p class="visor-loading-detail" id="loading-detail">Preparando...</p>
+      </div>
+
+      <!-- Estado: error -->
+      <div class="visor-error" id="visor-error" style="display:none;" role="alert">
+        <h3>No se pudo cargar la revista</h3>
+        <p>Ocurrió un problema al cargar esta edición. Por favor intenta de nuevo más tarde.</p>
+        <a href="biblioteca.html" class="btn btn-ghost" style="margin-top:1rem;">
+          Volver a la biblioteca
+        </a>
+      </div>
+
+      <!-- Contenedor de las páginas renderizadas -->
+      <!-- PDF.js inserta aquí un canvas por cada página -->
+      <div
+        class="visor-canvas-wrapper"
+        id="visor-canvas-wrapper"
+        role="document"
+        aria-label="Páginas de la revista"
+        tabindex="0"
+      >
+        <!-- Las páginas se insertan dinámicamente por visor.js -->
+      </div>
+
+    </main>
+
+    <!-- ══════════════════════════════════════════
+      BARRA INFERIOR: NAVEGACIÓN DE PÁGINAS
+      ════════════════════════════════════════════ -->
+    <nav class="visor-navbar" role="navigation" aria-label="Navegación de páginas">
+
+      <!-- Botón página anterior -->
+      <button
+        class="visor-nav-btn"
+        id="btn-prev"
+        aria-label="Página anterior"
+        title="Anterior (← ↑)"
+        disabled
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="14" height="14">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+        <span>Anterior</span>
+      </button>
+
+      <!-- Indicador de página actual / total -->
+      <div class="visor-page-indicator" aria-live="polite" aria-atomic="true">
+        <span class="visor-page-label font-ui" style="font-size:0.7rem;color:#4A3E30;letter-spacing:0.1em;text-transform:uppercase;">Pág.</span>
+        <!-- Input editable para ir directo a una página -->
+        <input
+          type="number"
+          class="visor-page-input"
+          id="page-input"
+          value="1"
+          min="1"
+          aria-label="Número de página actual"
+          title="Escribe un número y pulsa Enter para ir a esa página"
+        />
+        <span class="visor-page-sep">/</span>
+        <span class="visor-page-total" id="total-pages">—</span>
+      </div>
+
+      <!-- Botón página siguiente -->
+      <button
+        class="visor-nav-btn"
+        id="btn-next"
+        aria-label="Página siguiente"
+        title="Siguiente (→ ↓)"
+        disabled
+      >
+        <span>Siguiente</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="14" height="14">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+
+    </nav>
+
+  </div><!-- /visor-layout -->
+
+  <!-- ══════════════════════════════════════════
+    AYUDA DE TECLADO (tooltip informativo)
+    ════════════════════════════════════════════ -->
+  <div style="
+    position:fixed;
+    bottom:72px;
+    right:1rem;
+    background:rgba(23,20,16,0.9);
+    border:1px solid #2E2820;
+    border-radius:4px;
+    padding:0.5rem 0.75rem;
+    font-family:var(--font-ui);
+    font-size:0.65rem;
+    letter-spacing:0.08em;
+    color:#4A3E30;
+    text-transform:uppercase;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity 0.3s;
+    " id="keyboard-hint">
+    ← → Navegar · + − Zoom · Ctrl+Scroll Zoom
+  </div>
+
+  <!-- Mostrar hint de teclado solo en desktop -->
+  <script>
+    if (window.innerWidth > 768) {
+      setTimeout(() => {
+        const hint = document.getElementById('keyboard-hint');
+        if (hint) {
+          hint.style.opacity = '1';
+          setTimeout(() => { hint.style.opacity = '0'; }, 4000);
+        }
+      }, 2000);
+    }
+  </script>
+
+  <!-- ══════════════════════════════════════════
+    SCRIPTS
+    ════════════════════════════════════════════ -->
+  <script src="js/config.js"></script>
+  <!-- nav.js no se usa en el visor (no tiene header normal) -->
+  <script src="js/visor.js"></script>
+
+</body>
+</html>

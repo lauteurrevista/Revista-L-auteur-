@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <!-- ============================================================
+    L'AUTEUR — Revista Literaria Digital
+    Archivo: biblioteca.html
+    Descripción: Biblioteca / archivo de todas las ediciones.
+    Las tarjetas se generan automáticamente desde editions.json.
+    ============================================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Archivo completo de L'Auteur — Todas las ediciones de la revista literaria digital." />
+
+  <title>Biblioteca — L'Auteur</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/biblioteca.css" />
+
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+</head>
+<body class="page-biblioteca">
+
+  <!-- ══════════════════════════════════════════
+    HEADER GLOBAL
+    ════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container">
+
+      <a href="index.html" class="header-logo" aria-label="L'Auteur — Inicio">
+        L'<span>Auteur</span>
+      </a>
+
+      <nav class="header-nav" role="navigation" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="biblioteca.html">Biblioteca</a>
+        <a href="index.html#about">Sobre la revista</a>
+      </nav>
+
+      <div class="header-controls">
+        <button class="theme-toggle" aria-label="Cambiar modo de color" title="Modo oscuro / claro">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 7a5 5 0 100 10A5 5 0 0012 7z" />
+          </svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
+          </svg>
+        </button>
+
+        <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menú móvil -->
+  <nav class="mobile-menu" role="navigation" aria-label="Menú móvil">
+    <a href="index.html">Inicio</a>
+    <a href="biblioteca.html">Biblioteca</a>
+    <a href="index.html#about">Sobre la revista</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+    CABECERA DE LA BIBLIOTECA
+    ════════════════════════════════════════════ -->
+  <section class="biblioteca-hero" aria-label="Cabecera del archivo">
+    <div class="container">
+      <div class="biblioteca-hero-inner">
+
+        <div>
+          <p class="biblioteca-eyebrow">Archivo completo</p>
+          <h1 class="biblioteca-title">
+            Todas las<br /><em>ediciones</em>
+          </h1>
+          <p class="biblioteca-desc">
+            Cada número de L'Auteur es una pieza autónoma.
+            Explora el archivo desde la primera edición hasta la más reciente.
+          </p>
+        </div>
+
+        <!-- Contador (se actualiza desde biblioteca.js) -->
+        <div class="biblioteca-count">
+          <div class="biblioteca-count-number" id="biblioteca-count">—</div>
+          <div class="biblioteca-count-label">Ediciones publicadas</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+    BARRA DE HERRAMIENTAS
+    ════════════════════════════════════════════ -->
+  <div class="biblioteca-toolbar container" role="toolbar" aria-label="Herramientas de búsqueda">
+
+    <span class="toolbar-label">Buscar</span>
+
+    <!-- Búsqueda en tiempo real -->
+    <div class="search-box" role="search">
+      <span class="search-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+      </span>
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Buscar por título, número, fecha..."
+        aria-label="Buscar ediciones"
+        autocomplete="off"
+      />
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════
+    GRID DE EDICIONES
+    ════════════════════════════════════════════ -->
+  <main class="biblioteca-content">
+    <div class="container">
+
+      <!-- Las tarjetas se insertan automáticamente por biblioteca.js -->
+      <div
+        class="ediciones-grid"
+        id="ediciones-grid"
+        role="list"
+        aria-label="Ediciones de la revista"
+        aria-live="polite"
+      >
+        <!-- Estado de carga inicial -->
+        <p class="text-muted" style="grid-column:1/-1;padding:2rem 0;font-family:var(--font-ui);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;">
+          Cargando ediciones...
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ══════════════════════════════════════════
+    FOOTER
+    ════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <h3>L'<span class="text-accent">Auteur</span></h3>
+          <p>Revista literaria digital independiente. Un espacio para la literatura sin fronteras.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="biblioteca.html">Biblioteca</a></li>
+            <li><a href="index.html#about">Sobre la revista</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="mailto:contacto@lauteur.com">contacto@lauteur.com</a></li>
+            <li><a href="https://instagram.com/lauteur" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://twitter.com/lauteur" target="_blank" rel="noopener">Twitter / X</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="footer-year"></span> L'Auteur. Todos los derechos reservados.</p>
+        <p class="font-ui" style="font-size:0.7rem;letter-spacing:0.08em;">
+          Hecho con cuidado · Publicado con GitHub Pages
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+    SCRIPTS
+    ════════════════════════════════════════════ -->
+  <script src="js/config.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/biblioteca.js"></script>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
