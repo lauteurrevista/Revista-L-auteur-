@@ -1,217 +1,141 @@
-/* ============================================================
-   L'AUTEUR — Revista Literaria Digital
-   Archivo: js/biblioteca.js
-   Descripción: Genera automáticamente la galería de ediciones.
-   Lee editions.json y construye todas las tarjetas.
-   ============================================================ */
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <!-- ============================================================
+    L'AUTEUR — Revista Literaria Digital
+    Archivo: biblioteca.html
+    Descripción: Biblioteca animada conectada a editions.json.
+    ============================================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Archivo completo de L'Auteur — Todas las ediciones de la revista literaria digital." />
 
-/* ─────────────────────────────────────────────
-   ESTADO LOCAL
-   ───────────────────────────────────────────── */
-let todasLasEdiciones = []; // Almacena todas las ediciones cargadas
-let filtroActual = '';      // Texto de búsqueda actual
+  <title>Biblioteca — L'Auteur</title>
 
-/* ─────────────────────────────────────────────
-   INICIALIZACIÓN
-   ───────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', async () => {
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/biblioteca.css" />
 
-  // Cargar todas las ediciones
-  const data = await cargarEdiciones();
-  if (!data) {
-    mostrarError();
-    return;
-  }
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+</head>
+<body class="page-biblioteca">
 
-  todasLasEdiciones = data.ediciones.slice().reverse(); // Más recientes primero
-
-  // Actualizar contador de ediciones
-  const countEl = document.getElementById('biblioteca-count');
-  if (countEl) countEl.textContent = todasLasEdiciones.length;
-
-  // Renderizar el grid completo
-  renderizarGrid(todasLasEdiciones);
-
-  // Inicializar búsqueda
-  initBusqueda();
-
-  // Animaciones de entrada
-  initAnimaciones();
-});
-
-/* ─────────────────────────────────────────────
-   CARGAR DATOS
-   ───────────────────────────────────────────── */
-async function cargarEdiciones() {
-  try {
-    const response = await fetch('data/editions.json');
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return await response.json();
-  } catch (error) {
-    console.error('Error cargando ediciones:', error);
-    return null;
-  }
-}
-
-/* ─────────────────────────────────────────────
-   RENDERIZAR GRID DE EDICIONES
-   ───────────────────────────────────────────── */
-function renderizarGrid(ediciones) {
-  const grid = document.getElementById('ediciones-grid');
-  if (!grid) return;
-
-  grid.innerHTML = ''; // Limpiar contenido previo
-
-  if (ediciones.length === 0) {
-    grid.innerHTML = `
-      <div class="empty-state">
-        <h3>No se encontraron ediciones</h3>
-        <p>Intenta con otro término de búsqueda.</p>
-      </div>
-    `;
-    return;
-  }
-
-  ediciones.forEach(ed => {
-    const card = crearBibCard(ed);
-    grid.appendChild(card);
-  });
-
-  // Activar animaciones en las nuevas tarjetas
-  initAnimaciones();
-}
-
-/* ─────────────────────────────────────────────
-   CREAR TARJETA DE BIBLIOTECA (grande)
-   ───────────────────────────────────────────── */
-function crearBibCard(ed) {
-  const article = document.createElement('article');
-  article.className = 'bib-card fade-in';
-
-  article.innerHTML = `
-    <div class="bib-card-cover">
-      <img
-        src="${ed.portada}"
-        alt="Portada ${ed.numero} — ${ed.titulo}"
-        loading="lazy"
-        onerror="this.src='assets/images/cover-placeholder.svg'"
-      />
-      <div class="bib-card-numero-badge">${ed.numero}</div>
-      <div class="bib-card-overlay">
-        <button
-          class="bib-overlay-btn bib-overlay-btn-primary"
-          onclick="abrirVisor(${ed.id}, event)"
-          aria-label="Leer ${ed.titulo} en el visor"
-        >
-          Leer en visor
+  <!-- HEADER GLOBAL -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="header-logo" aria-label="L'Auteur — Inicio">
+        L'<span>Auteur</span>
+      </a>
+      <nav class="header-nav" role="navigation" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="biblioteca.html">Biblioteca</a>
+        <a href="index.html#about">Sobre la revista</a>
+      </nav>
+      <div class="header-controls">
+        <button class="theme-toggle" aria-label="Cambiar modo de color" title="Modo oscuro / claro">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 7a5 5 0 100 10A5 5 0 0012 7z" />
+          </svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
+          </svg>
         </button>
-        <a
-          href="${ed.pdf}"
-          download
-          class="bib-overlay-btn bib-overlay-btn-secondary"
-          onclick="event.stopPropagation()"
-          aria-label="Descargar PDF de ${ed.titulo}"
-        >
-          Descargar PDF
-        </a>
+        <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
-    <div class="bib-card-info">
-      <h3 class="bib-card-titulo">${ed.titulo}</h3>
-      <p class="bib-card-fecha">${ed.fecha} · ${ed.paginas} págs.</p>
+  </header>
+
+  <!-- Menú móvil -->
+  <nav class="mobile-menu" role="navigation" aria-label="Menú móvil">
+    <a href="index.html">Inicio</a>
+    <a href="biblioteca.html">Biblioteca</a>
+    <a href="index.html#about">Sobre la revista</a>
+  </nav>
+
+  <!-- CABECERA DE LA BIBLIOTECA -->
+  <section class="biblioteca-hero" aria-label="Cabecera del archivo">
+    <div class="container">
+      <div class="biblioteca-hero-inner">
+        <div>
+          <p class="biblioteca-eyebrow">Archivo completo</p>
+          <h1 class="biblioteca-title">Todas las<br /><em>ediciones</em></h1>
+          <p class="biblioteca-desc">Cada número de L'Auteur es una pieza autónoma. Explora el archivo desde la primera edición hasta la más reciente.</p>
+        </div>
+        <!-- Contador dinámico -->
+        <div class="biblioteca-count">
+          <div class="biblioteca-count-number" id="biblioteca-count">—</div>
+          <div class="biblioteca-count-label">Ediciones publicadas</div>
+        </div>
+      </div>
     </div>
-  `;
+  </section>
 
-  // Click en la tarjeta abre el visor
-  article.addEventListener('click', () => abrirVisor(ed.id));
-
-  return article;
-}
-
-/* ─────────────────────────────────────────────
-   ABRIR EL VISOR
-   ───────────────────────────────────────────── */
-function abrirVisor(id, event) {
-  if (event) event.stopPropagation();
-  window.location.href = `visor.html?id=${id}`;
-}
-
-/* ─────────────────────────────────────────────
-   BÚSQUEDA EN TIEMPO REAL
-   ───────────────────────────────────────────── */
-function initBusqueda() {
-  const searchInput = document.getElementById('search-input');
-  if (!searchInput) return;
-
-  searchInput.addEventListener('input', (e) => {
-    filtroActual = e.target.value.toLowerCase().trim();
-    filtrarEdiciones();
-  });
-
-  // Limpiar búsqueda con Escape
-  searchInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      searchInput.value = '';
-      filtroActual = '';
-      filtrarEdiciones();
-    }
-  });
-}
-
-/* ─────────────────────────────────────────────
-   FILTRAR EDICIONES POR BÚSQUEDA
-   Busca en: número, título, descripción, fecha, temas
-   ───────────────────────────────────────────── */
-function filtrarEdiciones() {
-  if (!filtroActual) {
-    renderizarGrid(todasLasEdiciones);
-    return;
-  }
-
-  const filtradas = todasLasEdiciones.filter(ed => {
-    const campos = [
-      ed.numero,
-      ed.titulo,
-      ed.descripcion,
-      ed.fecha,
-      ...(ed.temas || [])
-    ].join(' ').toLowerCase();
-
-    return campos.includes(filtroActual);
-  });
-
-  renderizarGrid(filtradas);
-}
-
-/* ─────────────────────────────────────────────
-   MOSTRAR ERROR DE CARGA
-   ───────────────────────────────────────────── */
-function mostrarError() {
-  const grid = document.getElementById('ediciones-grid');
-  if (!grid) return;
-
-  grid.innerHTML = `
-    <div class="empty-state">
-      <h3>Error al cargar ediciones</h3>
-      <p>No se pudo cargar el archivo de ediciones. Verifica que el archivo <code>data/editions.json</code> existe y es válido.</p>
+  <!-- BARRA DE HERRAMIENTAS -->
+  <div class="biblioteca-toolbar container" role="toolbar" aria-label="Herramientas de búsqueda">
+    <span class="toolbar-label">Buscar</span>
+    <div class="search-box" role="search">
+      <span class="search-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+      </span>
+      <input type="search" id="search-input" placeholder="Buscar por título, número, fecha..." aria-label="Buscar ediciones" autocomplete="off" />
     </div>
-  `;
-}
+  </div>
 
-/* ─────────────────────────────────────────────
-   ANIMACIONES DE ENTRADA
-   ───────────────────────────────────────────── */
-function initAnimaciones() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.05 });
+  <!-- GRID DE EDICIONES (Las tarjetas se generarán mágicamente aquí) -->
+  <main class="biblioteca-content">
+    <div class="container">
+      <div class="ediciones-grid" id="ediciones-grid" role="list" aria-label="Ediciones de la revista" aria-live="polite">
+        <p class="text-muted" style="grid-column:1/-1;padding:2rem 0;font-family:sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;">
+          Cargando ediciones con animación...
+        </p>
+      </div>
+    </div>
+  </main>
 
-  document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
-    observer.observe(el);
-  });
-}
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>L'<span>Auteur</span></h3>
+          <p>Revista literaria digital independiente. Un espacio para la literatura sin fronteras.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="biblioteca.html">Biblioteca</a></li>
+            <li><a href="index.html#about">Sobre la revista</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="mailto:contacto@lauteur.com">contacto@lauteur.com</a></li>
+            <li><a href="https://instagram.com/lauteur" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="footer-year"></span> L'Auteur. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LLAMADA A LOS SCRIPTS (Asegura cargar biblioteca.js que tiene tus animaciones) -->
+  <script src="js/config.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="biblioteca.js"></script>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+       
