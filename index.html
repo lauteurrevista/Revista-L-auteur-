@@ -4,16 +4,11 @@
   <!-- ============================================================
     L'AUTEUR — Revista Literaria Digital
     Archivo: index.html
-    Descripción: Página principal / home.
+    Descripción: Página de inicio corregida y conectada al visor interactivo.
     ============================================================ -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="L'Auteur — Revista literaria digital independiente. Narrativa, poesía, ensayo y traducción." />
-
-  <!-- Open Graph (para redes sociales) -->
-  <meta property="og:title"       content="L'Auteur — Revista Literaria Digital" />
-  <meta property="og:description" content="Un espacio dedicado a la literatura que trasciende fronteras." />
-  <meta property="og:type"        content="website" />
+  <meta name="description" content="L'Auteur — Revista literaria digital independiente. Un espacio para la literatura sin fronteras." />
 
   <title>L'Auteur — Revista Literaria Digital</title>
 
@@ -21,44 +16,30 @@
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/home.css" />
 
-  <!-- Favicon (puedes reemplazarlo con tu logo) -->
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
 </head>
 <body class="page-home">
 
-  <!-- ══════════════════════════════════════════
-    HEADER GLOBAL (compartido en todas las páginas)
-    ════════════════════════════════════════════ -->
+  <!-- HEADER GLOBAL -->
   <header class="site-header" role="banner">
     <div class="container">
-
-      <!-- Logo -->
       <a href="index.html" class="header-logo" aria-label="L'Auteur — Inicio">
         L'<span>Auteur</span>
       </a>
-
-      <!-- Navegación principal (desktop) -->
       <nav class="header-nav" role="navigation" aria-label="Navegación principal">
-        <a href="index.html">Inicio</a>
+        <a href="index.html" class="active">Inicio</a>
         <a href="biblioteca.html">Biblioteca</a>
-        <a href="index.html#about">Sobre la revista</a>
+        <a href="#about">Sobre la revista</a>
       </nav>
-
-      <!-- Controles del header -->
       <div class="header-controls">
-        <!-- Toggle de modo oscuro -->
         <button class="theme-toggle" aria-label="Cambiar modo de color" title="Modo oscuro / claro">
-          <!-- Icono sol (modo claro) -->
           <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 7a5 5 0 100 10A5 5 0 0012 7z" />
           </svg>
-          <!-- Icono luna (modo oscuro) -->
           <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
           </svg>
         </button>
-
-        <!-- Botón menú móvil -->
         <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
           <span></span>
           <span></span>
@@ -72,263 +53,90 @@
   <nav class="mobile-menu" role="navigation" aria-label="Menú móvil">
     <a href="index.html">Inicio</a>
     <a href="biblioteca.html">Biblioteca</a>
-    <a href="index.html#about">Sobre la revista</a>
+    <a href="#about">Sobre la revista</a>
   </nav>
 
-  <!-- ══════════════════════════════════════════
-    HERO — SECCIÓN PRINCIPAL
-    ════════════════════════════════════════════ -->
-  <section class="hero" aria-label="Presentación de la revista">
-    <div class="container">
-
-      <!-- Columna izquierda: texto -->
-      <div class="hero-content">
-        <div class="hero-eyebrow">
-          <span class="hero-eyebrow-line"></span>
-          <span class="hero-eyebrow-text">Revista Literaria Digital</span>
-        </div>
-
-        <h1 class="hero-title">
-          L'<em>Auteur</em>
-        </h1>
-
-        <p class="hero-description">
-          Un espacio dedicado a la literatura que trasciende fronteras.
-          Narrativa, poesía, ensayo y traducción de voces que tienen
-          algo verdadero que decir.
-        </p>
-
+  <!-- HERO SECTION (Última edición destacada) -->
+  <main class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-text-content">
+        <p class="hero-eyebrow">Revista Literaria Digital</p>
+        <h1 class="hero-title">L'Auteur</h1>
+        <p class="hero-desc">Un espacio dedicado a la literatura que trasciende fronteras. Narrativa, poesía, ensayo y traducción de voces que tienen algo verdadero que decir.</p>
+        
         <div class="hero-actions">
-          <!-- Este enlace se actualiza automáticamente con la última edición -->
-          <a href="assets/pdfs/edicion-01.pdf" id="btn-ultima-edicion" class="btn btn-primary" target="_blank">
-
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16">
+          <!-- Este botón redirige directo al Visor Interactivo con animación para la Edición 1 -->
+          <a href="visor.html?id=1" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width:18px;height:18px;margin-right:4px;">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
             </svg>
-            Leer última edición
+            Leer edición animada
           </a>
           <a href="biblioteca.html" class="btn btn-secondary">Ver biblioteca</a>
         </div>
 
-        <!-- Estadísticas -->
-        <div class="hero-meta">
-          <div class="hero-stat">
-            <span class="hero-stat-number" id="stat-ediciones">—</span>
-            <span class="hero-stat-label">Ediciones</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-number">100%</span>
-            <span class="hero-stat-label">Gratuita</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-number">∞</span>
-            <span class="hero-stat-label">Independiente</span>
-          </div>
+        <div class="hero-stats">
+          <div class="stat-item"><span>Nº 01</span> Edición Actual</div>
+          <div class="stat-item"><span>100%</span> Gratuita</div>
+          <div class="stat-item"><span>∞</span> Independiente</div>
         </div>
       </div>
 
-      <!-- Columna derecha: portada de la última edición -->
-            <div class="hero-visual">
-        <div class="hero-cover-wrapper">
-          <span class="hero-cover-badge">Última edición</span>
-          <img
-            src="activos/portadas/portada-01.jpg"
-            alt="Portada de la última edición"
-            style="width: 100%; height: auto; max-width: 320px; display: block; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
-          />
-        </div>
-      </div>
-
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-    SECCIÓN: EDICIÓN DESTACADA (más reciente)
-    ════════════════════════════════════════════ -->
-  <section class="section-latest" aria-labelledby="latest-title">
-    <div class="container">
-
-      <div class="section-header">
-        <h2 class="section-title" id="latest-title">Última edición</h2>
-        <a href="biblioteca.html" class="section-link">
-          Ver todo el archivo
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-          </svg>
-        </a>
-      </div>
-
-      <!-- Tarjeta grande de la edición destacada -->
-      <!-- Los datos se llenan automáticamente desde home.js -->
-      <article class="featured-card fade-in" id="featured-card">
-
-        <!-- Portada -->
-                <div class="featured-cover">
-          <img
-            src="activos/portadas/portada-01.jpg"
-            alt="Portada de la edición destacada"
-            style="width: 100%; height: auto; max-width: 320px; display: block; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
-          />
-        </div>
-
-
-        <!-- Información -->
-        <div class="featured-info">
-          <p class="featured-numero" id="feat-numero">Cargando...</p>
-          <h3 class="featured-titulo" id="feat-titulo">—</h3>
-          <p class="featured-descripcion" id="feat-descripcion">—</p>
-
-          <div class="featured-meta">
-            <div class="featured-meta-item">
-              <span class="featured-meta-label">Fecha</span>
-              <span class="featured-meta-value" id="feat-fecha">—</span>
-            </div>
-            <div class="featured-meta-item">
-              <span class="featured-meta-label">Páginas</span>
-              <span class="featured-meta-value" id="feat-paginas">—</span>
-            </div>
-          </div>
-
-          <a href="assets/pdfs/edicion-01.pdf" id="feat-btn" class="btn btn-primary" target="_blank">
-
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-            </svg>
-            Leer esta edición
+      <div class="hero-visual">
+        <div class="cover-wrapper">
+          <span class="cover-badge">Última edición</span>
+          <!-- Al hacer clic en la portada, también se abrirá el visor animado -->
+          <a href="visor.html?id=1">
+            <img src="activos/portadas/portada-01.jpg" alt="Portada L'Auteur Nº 01" class="featured-cover" />
           </a>
         </div>
-
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-    SECCIÓN: EDICIONES RECIENTES
-    ════════════════════════════════════════════ -->
-  <section class="section-recientes" aria-labelledby="recientes-title">
-    <div class="container">
-
-      <div class="section-header">
-        <h2 class="section-title" id="recientes-title">Ediciones anteriores</h2>
-        <a href="biblioteca.html" class="section-link">
-          Ver biblioteca completa
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-          </svg>
-        </a>
-      </div>
-
-      <!-- Las tarjetas se generan automáticamente desde home.js -->
-      <div class="editions-grid" id="recientes-grid" role="list" aria-label="Ediciones anteriores">
-        <!-- Las tarjetas se insertan aquí por JavaScript -->
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-    SECCIÓN: SOBRE LA REVISTA
-    ════════════════════════════════════════════ -->
-  <section class="section-about" id="about" aria-labelledby="about-title">
-    <div class="container">
-      <div class="about-grid">
-
-        <!-- Texto -->
-        <div class="about-content fade-in">
-          <p class="font-ui text-muted" style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;">
-            Nuestra propuesta
-          </p>
-          <h2 id="about-title">
-            Una revista hecha<br />
-            para <em>leer despacio</em>
-          </h2>
-
-          <div class="divider"></div>
-
-          <div id="about-manifiesto">
-            <!-- Contenido insertado desde config.js -->
-          </div>
-
-          <div class="about-quote">
-            <blockquote id="about-cita">
-              <!-- Cita insertada desde config.js -->
-            </blockquote>
-            <p class="text-muted font-ui" style="font-size:0.75rem;letter-spacing:0.1em;margin-top:0.5rem;" id="about-cita-autor"></p>
-          </div>
-
-          <a href="biblioteca.html" class="btn btn-ghost">
-            Ver todas las ediciones
-          </a>
-        </div>
-
-        <!-- Decoración visual -->
-        <div class="about-visual fade-in">
-          <div class="about-visual-inner">
-            <span class="about-deco-text" aria-hidden="true">L'A</span>
-          </div>
-        </div>
-
       </div>
     </div>
+  </main>
+
+  <!-- SECCIÓN ACERCA DE -->
+  <section id="about" class="about-section container">
+    <div class="divider"></div>
+    <p class="about-eyebrow">Nuestra propuesta</p>
+    <h2 class="about-title">Una revista hecha para <em>leer despacio</em></h2>
+    <p class="about-text">Creemos en el valor de la palabra escrita y en el espacio que necesita cada texto para respirar. L'Auteur nace como un refugio digital para autores y lectores que buscan profundizar en las corrientes literarias contemporáneas, rescatando la mística del formato impreso en el ecosistema digital.</p>
   </section>
 
-  <!-- ══════════════════════════════════════════
-    FOOTER
-    ════════════════════════════════════════════ -->
+  <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
-
-        <!-- Marca -->
         <div class="footer-brand">
-          <h3>L'<span class="text-accent">Auteur</span></h3>
+          <h3>L'<span>Auteur</span></h3>
           <p>Revista literaria digital independiente. Un espacio para la literatura sin fronteras.</p>
         </div>
-
-        <!-- Navegación -->
         <div class="footer-col">
           <h4>Navegación</h4>
           <ul>
             <li><a href="index.html">Inicio</a></li>
             <li><a href="biblioteca.html">Biblioteca</a></li>
-            <li><a href="index.html#about">Sobre la revista</a></li>
+            <li><a href="#about">Sobre la revista</a></li>
           </ul>
         </div>
-
-        <!-- Contacto -->
         <div class="footer-col">
           <h4>Contacto</h4>
           <ul>
             <li><a href="mailto:contacto@lauteur.com">contacto@lauteur.com</a></li>
             <li><a href="https://instagram.com/lauteur" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="https://twitter.com/lauteur" target="_blank" rel="noopener">Twitter / X</a></li>
           </ul>
         </div>
-
       </div>
-
       <div class="footer-bottom">
         <p>© <span id="footer-year"></span> L'Auteur. Todos los derechos reservados.</p>
-        <p class="font-ui" style="font-size:0.7rem;letter-spacing:0.08em;">
-          Hecho con cuidado · Publicado con GitHub Pages
-        </p>
       </div>
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════
-    SCRIPTS
-    ════════════════════════════════════════════ -->
+  <!-- Scripts mínimos de control -->
   <script src="js/config.js"></script>
   <script src="js/nav.js"></script>
-  <script src="js/home.js"></script>
-
-  <!-- Año actual en el footer -->
   <script>
     document.getElementById('footer-year').textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>
