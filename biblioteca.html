@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
 <head>
-  <!-- ============================================================
-    L'AUTEUR — Revista Literaria Digital
-    Archivo: biblioteca.html
-    Descripción: Biblioteca / archivo de todas las ediciones.
-    Las tarjetas se generan automáticamente desde editions.json.
-    ============================================================ -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Archivo completo de L'Auteur — Todas las ediciones de la revista literaria digital." />
 
   <title>Biblioteca — L'Auteur</title>
 
-  <!-- Estilos -->
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/biblioteca.css" />
 
@@ -21,9 +14,6 @@
 </head>
 <body class="page-biblioteca">
 
-  <!-- ══════════════════════════════════════════
-    HEADER GLOBAL
-    ════════════════════════════════════════════ -->
   <header class="site-header" role="banner">
     <div class="container">
 
@@ -56,16 +46,12 @@
     </div>
   </header>
 
-  <!-- Menú móvil -->
   <nav class="mobile-menu" role="navigation" aria-label="Menú móvil">
     <a href="index.html">Inicio</a>
     <a href="biblioteca.html">Biblioteca</a>
     <a href="index.html#about">Sobre la revista</a>
   </nav>
 
-  <!-- ══════════════════════════════════════════
-    CABECERA DE LA BIBLIOTECA
-    ════════════════════════════════════════════ -->
   <section class="biblioteca-hero" aria-label="Cabecera del archivo">
     <div class="container">
       <div class="biblioteca-hero-inner">
@@ -81,9 +67,8 @@
           </p>
         </div>
 
-        <!-- Contador (se actualiza desde biblioteca.js) -->
         <div class="biblioteca-count">
-          <div class="biblioteca-count-number" id="biblioteca-count">—</div>
+          <div class="biblioteca-count-number" id="biblioteca-count">1</div>
           <div class="biblioteca-count-label">Ediciones publicadas</div>
         </div>
 
@@ -91,17 +76,13 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-    BARRA DE HERRAMIENTAS
-    ════════════════════════════════════════════ -->
   <div class="biblioteca-toolbar container" role="toolbar" aria-label="Herramientas de búsqueda">
 
     <span class="toolbar-label">Buscar</span>
 
-    <!-- Búsqueda en tiempo real -->
     <div class="search-box" role="search">
       <span class="search-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px;">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
       </span>
@@ -116,32 +97,36 @@
 
   </div>
 
-  <!-- ══════════════════════════════════════════
-    GRID DE EDICIONES
-    ════════════════════════════════════════════ -->
   <main class="biblioteca-content">
     <div class="container">
 
-      <!-- Las tarjetas se insertan automáticamente por biblioteca.js -->
       <div
         class="ediciones-grid"
         id="ediciones-grid"
         role="list"
         aria-label="Ediciones de la revista"
-        aria-live="polite"
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2rem; padding: 2rem 0;"
       >
-        <!-- Estado de carga inicial -->
-        <p class="text-muted" style="grid-column:1/-1;padding:2rem 0;font-family:var(--font-ui);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;">
-          Cargando ediciones...
-        </p>
+        
+        <article class="edition-card" style="background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 1rem;">
+          <div style="width: 100%; text-align: center; margin-bottom: 1rem;">
+            <img
+              src="activos/portadas/portada-01.jpg"
+              alt="L'Auteur — Edición 01"
+              style="width: 100%; height: auto; max-width: 200px; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.12);"
+            />
+          </div>
+          <p style="font-family: monospace; color: #888; font-size: 0.8rem; margin: 0;">NÚMERO 01</p>
+          <h3 style="margin: 0.3rem 0; font-size: 1.2rem;">Volumen Inicial</h3>
+          <p style="font-size: 0.9rem; color: #555; margin-bottom: 1rem;">Un espacio dedicado a la literatura que trasciende fronteras.</p>
+          <a href="assets/pdfs/edicion-01.pdf" target="_blank" class="btn btn-primary" style="display: inline-block; padding: 0.5rem 1rem; background: #000; color: #fff; text-decoration: none; border-radius: 4px; font-size: 0.85rem;">Leer edición</a>
+        </article>
+
       </div>
 
     </div>
   </main>
 
-  <!-- ══════════════════════════════════════════
-    FOOTER
-    ════════════════════════════════════════════ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
@@ -180,12 +165,8 @@
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════
-    SCRIPTS
-    ════════════════════════════════════════════ -->
   <script src="js/config.js"></script>
   <script src="js/nav.js"></script>
-  <script src="js/biblioteca.js"></script>
 
   <script>
     document.getElementById('footer-year').textContent = new Date().getFullYear();
